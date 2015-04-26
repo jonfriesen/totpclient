@@ -1,0 +1,49 @@
+.timerContainer {
+	width: 300px;
+	margin-top: 20px;
+	margin-bottom: 1px;
+  color: #545454;
+}
+
+section {
+    width: 99%;
+    height: 40px;
+    margin: auto;
+    padding: 2px;
+}
+
+.timer {
+	margin-left: 15%;
+  height: 40px;
+
+  color: #545454;
+}
+
+.otp {
+	width: 70%;
+  height: 40px;
+  float: left;
+  padding-left: 20px;
+}
+
+.inputForms .form-group {
+	padding-top: 10px;
+}
+
+.row {
+	padding-top: 10px;
+}
+
+.qrCode {
+	text-align: center;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#footer {
+  width: 300px;
+  padding-left: 10px;
+}

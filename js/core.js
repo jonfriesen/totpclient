@@ -83,9 +83,9 @@ function updateOtp() {
     }
 
     var otp = (hex2dec(hmac.substr(offset * 2, 8)) & hex2dec('7fffffff')) + '';
-    otp = (otp).substr(otp.length - 6, 6);
+    otp = (otp).substr(otp.length - 8, 8);
 
-    $('#otp').text(otp.insert(3, " "));
+    $('#otp').text(otp.insert(4, " "));
     
 }
 

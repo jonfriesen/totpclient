@@ -16,6 +16,7 @@
 
 var secretType = "Base32";
 var otpLength = 8;
+var otpWindow = 30;
 var secret = "JBSWY3DPEHPK3PXP";
 
 function dec2hex(s) {
@@ -60,12 +61,12 @@ function updateOtp() {
         key = secret;
     }
     var epoch = Math.round(new Date().getTime() / 1000.0);
-    var time = leftpad(dec2hex(Math.floor(epoch / 30)), 16, '0');
+    var time = leftpad(dec2hex(Math.floor(epoch / otpWindow)), 16, '0');
 
     var hmacObj = new jsSHA(time, 'HEX');
     var hmac = hmacObj.getHMAC(key, 'HEX', 'SHA-1', "HEX");
 
-    $('#qrImg').attr('src', 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/TestOTP%3Fsecret%3D' + $('#secret').val());
+    $('#qrImg').attr('src', 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/TestOTP%3Fsecret%3D' + secret);
 
     if (hmac == 'KEY MUST BE IN BYTE INCREMENTS') {
         $('#hmac').append($('<span/>').addClass('label important').append(hmac));
@@ -88,8 +89,8 @@ function updateOtp() {
 
 function timer() {
     var epoch = Math.round(new Date().getTime() / 1000.0);
-    var countDown = 30 - (epoch % 30);
-    if (epoch % 30 == 0) updateOtp();
+    var countDown = otpWindow - (epoch % otpWindow);
+    if (epoch % otpWindow == 0) updateOtp();
     $('#updatingIn').text(countDown);
 
     if(countDown >= 10) {
@@ -133,6 +134,14 @@ $(function() {
 				updateOtp();
 			}
 		});
+    $(".otpWindow").click(function() {
+            var newOtpWindow = $(this).text();
+            if(newOtpWindow.length > 0) {
+                $(this).addClass('active').siblings().removeClass('active');
+                otpWindow = Number(newOtpWindow);
+                updateOtp();
+            }
+        });
 });
 
 // Utilities

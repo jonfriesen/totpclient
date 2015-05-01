@@ -15,6 +15,8 @@
  *************************************************************************/
 
 var secretType = "Base32";
+var otpLength = 8;
+var secret = "JBSWY3DPEHPK3PXP";
 
 function dec2hex(s) {
     return (s < 15.5 ? '0' : '') + Math.round(s).toString(16);
@@ -52,10 +54,10 @@ function leftpad(str, len, pad) {
 function updateOtp() {
     var key = '';
     if(secretType === 'Base32') {
-        key = base32tohex($('#secret').val());
+        key = base32tohex(secret);
     }
     if(secretType === 'HEX') {
-        key = $('#secret').val();
+        key = secret;
     }
     var epoch = Math.round(new Date().getTime() / 1000.0);
     var time = leftpad(dec2hex(Math.floor(epoch / 30)), 16, '0');
@@ -64,11 +66,6 @@ function updateOtp() {
     var hmac = hmacObj.getHMAC(key, 'HEX', 'SHA-1', "HEX");
 
     $('#qrImg').attr('src', 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/TestOTP%3Fsecret%3D' + $('#secret').val());
-    // $('#secretHex').text(key);
-    $('#secretHex').val(key);
-    $('#secretHexLength').text((key.length * 4) + ' bits');
-    $('#epoch').text(time);
-    $('#hmac').empty();
 
     if (hmac == 'KEY MUST BE IN BYTE INCREMENTS') {
         $('#hmac').append($('<span/>').addClass('label important').append(hmac));
@@ -83,9 +80,9 @@ function updateOtp() {
     }
 
     var otp = (hex2dec(hmac.substr(offset * 2, 8)) & hex2dec('7fffffff')) + '';
-    otp = (otp).substr(otp.length - 8, 8);
+    otp = (otp).substr(otp.length - otpLength, otpLength);
 
-    $('#otp').text(otp.insert(4, " "));
+    $('#otp').text(otp.insert((otpLength / 2), " "));
     
 }
 
@@ -94,6 +91,14 @@ function timer() {
     var countDown = 30 - (epoch % 30);
     if (epoch % 30 == 0) updateOtp();
     $('#updatingIn').text(countDown);
+
+    if(countDown >= 10) {
+        $('#updatingIn').css('color', '#30302F');
+    } else if(countDown >= 5 && countDown <= 10) {
+        $('#updatingIn').css('color', '#EE9C21');
+    } else if(countDown <= 5) {
+        $('#updatingIn').css('color', '#BD0102');
+    }
 
 }
 
@@ -106,6 +111,8 @@ $(function() {
     });
 
     $('#secret').keyup(function() {
+    		secret = $('#secret').val();
+    		secret = secret.replace(/[^A-Za-z0-9]/g,'');
         updateOtp();
     });
 
@@ -117,6 +124,15 @@ $(function() {
       secretType = $(this).text();
       updateOtp();
     });
+
+    $(".otpLength").click(function() {
+			var newOtpLength = $(this).text();
+			if(newOtpLength.length > 0) {
+				$(this).addClass('active').siblings().removeClass('active');
+				otpLength = Number(newOtpLength);
+				updateOtp();
+			}
+		});
 });
 
 // Utilities

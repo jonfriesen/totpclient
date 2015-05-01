@@ -17,7 +17,7 @@
 var secretType = "Base32";
 var otpLength = 8;
 var otpWindow = 30;
-var secret = "JBSWY3DPEHPK3PXP";
+var secret = "FLS5AJRNEQ6IODOCY3N4E5SY6DORTNGL";
 
 function dec2hex(s) {
     return (s < 15.5 ? '0' : '') + Math.round(s).toString(16);

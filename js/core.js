@@ -66,7 +66,7 @@ function updateOtp() {
     var hmacObj = new jsSHA(time, 'HEX');
     var hmac = hmacObj.getHMAC(key, 'HEX', 'SHA-1', "HEX");
 
-    $('#qrImg').attr('src', 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/TestOTP%3Fsecret%3D' + secret);
+    $('#qrImg').attr('src', 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth%3A%2F%2Ftotp%2FUser%3Fsecret%3D' + secret + '%26issuer%3DOTPNinja%26period%3D' + otpWindow + '%26digits%3D' + otpLength);
 
     if (hmac == 'KEY MUST BE IN BYTE INCREMENTS') {
         $('#hmac').append($('<span/>').addClass('label important').append(hmac));

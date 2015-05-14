@@ -1,2 +1,4 @@
-# totpclient
-A simple TOTP test client
+# totp.ninja
+A simple TOTP client
+
+Visit http://totp.ninja to see it in action!

@@ -104,44 +104,51 @@ function timer() {
 }
 
 $(function() {
-    updateOtp();
 
-    $('#update').click(function(event) {
-        updateOtp();
-        event.preventDefault();
-    });
+	var secretParam = getParameterByName('secret');
+	if(secretParam) {
+		secret = secretParam;
+		$('#secret').val(secret);
+	}
 
-    $('#secret').keyup(function() {
-    		secret = $('#secret').val();
-    		secret = secret.replace(/[^A-Za-z0-9]/g,'');
-        updateOtp();
-    });
+  updateOtp();
 
-    setInterval(timer, 1000);
-
-    $(".dropdown-menu li a").click(function(){
-      $(this).parents(".input-group-btn").find('.btn').text($(this).text());
-      $(this).parents(".input-group-btn").find('.btn').val($(this).text());
-      secretType = $(this).text();
+  $('#update').click(function(event) {
       updateOtp();
-    });
+      event.preventDefault();
+  });
 
-    $(".otpLength").click(function() {
-			var newOtpLength = $(this).text();
-			if(newOtpLength.length > 0) {
-				$(this).addClass('active').siblings().removeClass('active');
-				otpLength = Number(newOtpLength);
-				updateOtp();
-			}
-		});
-    $(".otpWindow").click(function() {
-            var newOtpWindow = $(this).text();
-            if(newOtpWindow.length > 0) {
-                $(this).addClass('active').siblings().removeClass('active');
-                otpWindow = Number(newOtpWindow);
-                updateOtp();
-            }
-        });
+  $('#secret').keyup(function() {
+  		secret = $('#secret').val();
+  		secret = secret.replace(/[^A-Za-z0-9]/g,'');
+      updateOtp();
+  });
+
+  setInterval(timer, 1000);
+
+  $(".dropdown-menu li a").click(function(){
+    $(this).parents(".input-group-btn").find('.btn').text($(this).text());
+    $(this).parents(".input-group-btn").find('.btn').val($(this).text());
+    secretType = $(this).text();
+    updateOtp();
+  });
+
+  $(".otpLength").click(function() {
+		var newOtpLength = $(this).text();
+		if(newOtpLength.length > 0) {
+			$(this).addClass('active').siblings().removeClass('active');
+			otpLength = Number(newOtpLength);
+			updateOtp();
+		}
+	});
+  $(".otpWindow").click(function() {
+      var newOtpWindow = $(this).text();
+      if(newOtpWindow.length > 0) {
+          $(this).addClass('active').siblings().removeClass('active');
+          otpWindow = Number(newOtpWindow);
+          updateOtp();
+      }
+  });
 });
 
 // Utilities
@@ -151,3 +158,10 @@ String.prototype.insert = function (index, string) {
   else
     return string + this;
 };
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}

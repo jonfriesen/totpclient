@@ -70,7 +70,7 @@
 	});
 </script>
 
-<div class="min-h-screen md:bg-gray-50 flex flex-col justify-center md:py-12 sm:py-1 sm:px-6 lg:px-8">
+<div class="min-h-screen md:bg-gray-50 flex  justify-center md:py-12 sm:py-1 sm:px-6 lg:px-8">
     <div class="md:mt-8 sm:mx-auto sm:w-2/5 sm:max-w-md">
       <div class="bg-white py-8 px-4 md:shadow md:rounded-lg sm:px-10">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">

@@ -2084,7 +2084,7 @@ var app = (function () {
     			attr(div19, "class", "bg-white py-8 px-4 md:shadow md:rounded-lg sm:px-10");
     			attr(div20, "class", "flex justify-between text-xs text-gray-400 mt-1");
     			attr(div21, "class", "md:mt-8 sm:mx-auto sm:w-2/5 sm:max-w-md");
-    			attr(div22, "class", "min-h-screen md:bg-gray-50 flex flex-col justify-center md:py-12 sm:py-1 sm:px-6 lg:px-8");
+    			attr(div22, "class", "min-h-screen md:bg-gray-50 flex  justify-center md:py-12 sm:py-1 sm:px-6 lg:px-8");
     		},
     		m(target, anchor) {
     			insert(target, div22, anchor);

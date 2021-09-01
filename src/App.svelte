@@ -38,6 +38,10 @@
 	@tailwind base;
 	@tailwind components;
 	@tailwind utilities;
+
+	html * {
+		font-family: Inter Var !important;
+	}
 </style>
 
 <main>

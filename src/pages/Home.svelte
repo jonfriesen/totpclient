@@ -229,6 +229,7 @@
                       <p>OTP Ninja is a static site for generating one time passwords (OTP). It is intended to be used as a testing utility, not for real world use. Please only use it for testing. None of the data entered is sent to the backend. The OTP's are generated in the browser, on your machine.</p>
                       <p class="mt-4">Clicking on the OTP will copy it to your clipboard. Clicking on the clipboard in the bottom left corner will copy a shareable link to the OTP configured.</p>
                       <p class="mt-4">The first version was created in 2015, with a refresh in 2021. It is currently hosted on DigitalOcean App Platform and built using TailwindCSS and SvelteJS.</p>
+                      <p class="mt-4">The source code is available on <a class="text-green-400 hover:text-green-700" href="https://github.com/jonfriesen/totpclient" target="_blank">GitHub</a>.</p>
                 </div>
               </div>
             </div>

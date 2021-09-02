@@ -14,6 +14,9 @@
     let otpCountdown = ''
     let qrURL = ''
     let shareURL = ''
+    
+    let percent = 0
+    let circumference = 30 * 2 * Math.PI
 
     // Start a timer
     setInterval(timer, 1000)
@@ -29,6 +32,7 @@
         var epoch = Math.round(new Date().getTime() / 1000.0)
         var countDown = otpWindow - (epoch % otpWindow)
         if (epoch % otpWindow == 0) otp = TOTP.updateOtp(secret, secretType, otpLength, otpWindow)
+        percent = Math.round(100 * (countDown / otpWindow))        
         otpCountdown = countDown
     }
 
@@ -91,14 +95,34 @@
             </button>
         </div>
             <div class="mt-4 flex justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-700 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <div
+                class="inline-flex items-center justify-center overflow-hidden rounded-full bottom-5 left-5"
+              >
+                <svg class="w-20 h-20 transform -rotate-90">
+                  <circle
+                    class="text-gray-300"
+                    stroke-width="5"
+                    stroke="currentColor"
+                    fill="transparent"
+                    r="30"
+                    cx="40"
+                    cy="40"
+                  />
+                  <circle
+                    class="text-green-500"
+                    stroke-width="5"
+                    stroke-dasharray="{circumference}"
+                    stroke-dashoffset="{circumference - percent / 100 * circumference}"
+                    stroke-linecap="round"
+                    stroke="currentColor"
+                    fill="transparent"
+                    r="30"
+                    cx="40"
+                    cy="40"
+                  />
                 </svg>
-                <span
-                    class="block w-12 text-4xl font-medium text-gray-700"
-                    class:text-yellow-500='{otpCountdown > 5 && otpCountdown <= 10}'
-                    class:text-red-500='{otpCountdown <= 5}'
-                    >{otpCountdown}</span>
+                <span class="absolute text-xl text-gray-700">{otpCountdown}</span>
+              </div>
             </div>
         </div>
 

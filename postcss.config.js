@@ -14,16 +14,16 @@ const svelteExtractor = ( content ) => {
   return matchedTokens
 }
 
-const purgecss = require('@fullhuman/postcss-purgecss')({
-  content: ['./src/**/*.svelte', './src/**/*.html'],
-  whitelistPatterns: [/svelte-/],
-  defaultExtractor: svelteExtractor,
-})
+// const purgecss = require('@fullhuman/postcss-purgecss')({
+//   content: ['./src/**/*.svelte', './src/**/*.html'],
+//   whitelistPatterns: [/svelte-/],
+//   defaultExtractor: svelteExtractor,
+// })
 
 module.exports = {
   plugins: [
     require('tailwindcss'),
     require('autoprefixer'),
-    ...(!process.env.ROLLUP_WATCH ? [purgecss] : [])
+    // ...(!process.env.ROLLUP_WATCH ? [purgecss] : [])
   ]
 }

@@ -1,9 +1,7 @@
 <script>
+	import Tailwind from "./Tailwind.svelte";
 	import router from "page";
 	import routes from "./routes";
-
-	// Include our Routes
-	import Home from "./pages/Home.svelte";
 
 	// Variables
 	let page;
@@ -34,15 +32,7 @@
 	router.start();
 </script>
 
-<style global>
-	@tailwind base;
-	@tailwind components;
-	@tailwind utilities;
-
-	html * {
-		font-family: Inter Var !important;
-	}
-</style>
+<Tailwind />
 
 <main>
 	<svelte:component this={page} {params} />

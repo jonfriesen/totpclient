@@ -45,7 +45,7 @@ export default {
 				css.write('public/build/bundle.css');
 			},
 			// run preprocessor on our style tags
-			preprocess: sveltePreprocess({ postcss: true })
+			preprocess: sveltePreprocess({ postcss: true, sourceMap: !isProduction })
 		}),
 
 		// If you have external dependencies installed from

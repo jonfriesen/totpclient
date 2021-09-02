@@ -70,7 +70,7 @@
 	});
 </script>
 
-<div class="min-h-screen md:bg-gray-50 flex  justify-center md:py-12 sm:py-1 sm:px-6 lg:px-8">
+<div class="md:bg-gradient-to-r md:from-green-400 md:to-blue-500 min-h-screen md:bg-gray-50 flex  justify-center md:py-12 sm:py-1 sm:px-6 lg:px-8">
     <div class="md:mt-8 sm:mx-auto sm:w-2/5 sm:max-w-md">
       <div class="bg-white py-8 px-4 md:shadow md:rounded-lg sm:px-10">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
@@ -181,9 +181,11 @@
             </button>
         </div>
       </div>
-      <div class="flex justify-between text-xs text-gray-400 mt-1">
+      <div class="flex justify-between text-xs text-gray-800 mt-1">
           <a href="https://jonfriesen.ca" target="_blank">Jon Friesen 2021</a>
-          <a href="https://www.digitalocean.com/?refcode=cd77e6593231&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge" target="_blank">Powered by DigitalOcean App Platform</a>
+          <a class="flex" href="https://www.digitalocean.com/?refcode=cd77e6593231&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge" target="_blank">
+            <img class="h-4 w-4 mr-1" src="./digitalocean.svg" alt="DigitalOcean logo" />
+            Powered by DigitalOcean App Platform</a>
       </div>
     </div>
   </div>

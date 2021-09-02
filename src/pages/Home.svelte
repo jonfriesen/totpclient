@@ -28,7 +28,7 @@
     function timer() {
         var epoch = Math.round(new Date().getTime() / 1000.0)
         var countDown = otpWindow - (epoch % otpWindow)
-        if (epoch % otpWindow == 0) TOTP.updateOtp()
+        if (epoch % otpWindow == 0) otp = TOTP.updateOtp(secret, secretType, otpLength, otpWindow)
         otpCountdown = countDown
     }
 

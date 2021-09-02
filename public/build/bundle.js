@@ -2267,7 +2267,7 @@ var app = (function () {
     	function timer() {
     		var epoch = Math.round(new Date().getTime() / 1000);
     		var countDown = otpWindow - epoch % otpWindow;
-    		if (epoch % otpWindow == 0) TOTP.updateOtp();
+    		if (epoch % otpWindow == 0) $$invalidate(5, otp = TOTP.updateOtp(secret, secretType, otpLength, otpWindow));
     		$$invalidate(6, otpCountdown = countDown);
     	}
 

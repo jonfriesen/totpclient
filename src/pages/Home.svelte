@@ -14,7 +14,8 @@
     let otpCountdown = ''
     let qrURL = ''
     let shareURL = ''
-    
+    let error = ''
+
     let percent = 0
     let circumference = 30 * 2 * Math.PI
 
@@ -24,14 +25,27 @@
     // Monitor for param changes
     $: {
         otpLength, otpWindow, secret, secretType
-        otp = TOTP.updateOtp(secret, secretType, otpLength, otpWindow)
+        try {
+          error = ''
+          otp = TOTP.updateOtp(secret, secretType, otpLength, otpWindow)
+        } catch (e) {
+          error = e
+        }
         qrURL = TOTP.getQRURL(secret, otpWindow, otpLength)
+        shareURL = createShareURL()
     }
 
     function timer() {
         var epoch = Math.round(new Date().getTime() / 1000.0)
         var countDown = otpWindow - (epoch % otpWindow)
-        if (epoch % otpWindow == 0) otp = TOTP.updateOtp(secret, secretType, otpLength, otpWindow)
+        if (epoch % otpWindow == 0) {
+          try {
+            error = ''
+            otp = TOTP.updateOtp(secret, secretType, otpLength, otpWindow)
+          } catch (e) {
+            error = e
+          }
+        }
         percent = Math.round(100 * (countDown / otpWindow))        
         otpCountdown = countDown
     }
@@ -68,7 +82,12 @@
             console.log(`param secret type: ${secretType}`)
         }
 
-		otp = TOTP.updateOtp(secret, secretType, otpLength, otpWindow)
+        try {
+          error = ''
+          otp = TOTP.updateOtp(secret, secretType, otpLength, otpWindow)
+        } catch (e) {
+          error = e
+        }
         qrURL = TOTP.getQRURL(secret, otpWindow, otpLength)
         shareURL = createShareURL()
 	});
@@ -175,8 +194,10 @@
                     <option value="hex">HEX</option>
                     </select>
                 </div>
-                <input type="text" name="secret" id="secret" class="focus:ring-green-500 focus:border-green-500 block w-full pl-28 sm:text-sm border-gray-300 rounded-md" placeholder="FLS5AJRNEQ6IODOCY3N4E5SY6DORTNGL" bind:value="{secret}">
+                <input type="text" name="secret" id="secret" class="focus:ring-green-500 focus:border-green-500 block w-full pl-28 sm:text-sm border-gray-300 rounded-md" class:border-red-300="{error != ''}" placeholder="FLS5AJRNEQ6IODOCY3N4E5SY6DORTNGL" bind:value="{secret}">
+                
                 </div>
+                <p class="ml-4 mt-2 text-sm text-red-600" class:invisible="{error == ''}" id="email-error">{error}</p>
             </div>
         </div>
 

@@ -3,10 +3,10 @@ import jsSHA from "./sha.js";
 
 function updateOtp(secret, secretType, otpLength, otpWindow) {
     var key = '';
-    if(secretType === 'Base32') {
+    if(secretType.toLowerCase() === 'base32') {
         key = Utils.base32tohex(secret);
     }
-    if(secretType === 'HEX') {
+    if(secretType.toLowerCase() === 'hex') {
         key = secret;
     }
     var epoch = Math.round(new Date().getTime() / 1000.0);

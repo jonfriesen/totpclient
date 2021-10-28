@@ -18,6 +18,15 @@
 
     let percent = 0
     let circumference = 30 * 2 * Math.PI
+    const circumferenceColor = (seconds) => {
+      if (seconds <= 8) {
+        return 'red-500';
+      } else if (seconds <= 15) {
+        return 'yellow-500';
+      } else {
+        return 'green-500';
+      }
+    };
 
     // Start a timer
     setInterval(timer, 1000)
@@ -128,7 +137,7 @@
                     cy="40"
                   />
                   <circle
-                    class="text-green-500"
+                    class="text-{circumferenceColor(otpCountdown)}"
                     stroke-width="5"
                     stroke-dasharray="{circumference}"
                     stroke-dashoffset="{circumference - percent / 100 * circumference}"
@@ -208,7 +217,7 @@
             </div>
             <div class="flex justify-center ">
                 
-                <img alt="qr code" src="{qrURL}"/>
+                <img alt="qr code" src="{qrURL}" width="200" />
             </div>
         </div>
 

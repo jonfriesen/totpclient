@@ -87,12 +87,14 @@ function copyTextToClipboard(text) {
     textArea.select();
   
     try {
-      document.execCommand('copy');
+        document.execCommand('copy');
+        return true;
     } catch (err) {
-      console.log(`unable to copy: ${err}`);
+        console.log(`unable to copy: ${err}`);
+        return false;
+    } finally {
+        document.body.removeChild(textArea);
     }
-  
-    document.body.removeChild(textArea);
   }
   
 

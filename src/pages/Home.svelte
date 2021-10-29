@@ -2,6 +2,10 @@
     import { onMount } from 'svelte';
     import Utils from "../tools/utils.js";
     import TOTP from "../tools/totp.js";
+    import tippy from 'tippy.js';
+
+    import 'tippy.js/dist/tippy.css';
+    import 'tippy.js/animations/shift-away.css';
 
     let otpLength = 8
     let otpWindow = 30
@@ -90,7 +94,26 @@
         }
         qrURL = TOTP.getQRURL(secret, otpWindow, otpLength)
         shareURL = createShareURL()
-	});
+	  });
+
+    const copyToClipboardHandler = text => {
+      return event => {
+        const success = Utils.copyTextToClipboard(text)
+        const content = success ? 'Copied to clipboard!' : "Couldn't copy to clipboard :("
+
+        tippy(event.target, {
+          content,
+          trigger: 'manual',
+          animation: 'shift-away',
+          hideOnClick: false,
+          onShow(instance) {
+            setTimeout(() => {
+              instance.hide()
+            }, 2000);
+          },
+        }).show()
+      }
+    }
 </script>
 
 <div class="md:bg-gradient-to-r md:from-green-400 md:to-blue-500 min-h-screen md:bg-gray-50 flex  justify-center md:py-12 sm:py-1 sm:px-6 lg:px-8">
@@ -103,7 +126,7 @@
         <!-- OTP & timer -->
         <div class="mt-12">
             <div class="flex items-center justify-center">
-            <button on:click='{() => Utils.copyTextToClipboard(otp)}' class="group flex justify-center">
+            <button on:click={copyToClipboardHandler(otp)} class="group flex justify-center">
                 <span class="block text-4xl font-medium text-gray-700 group-hover:text-gray-500 mr-2">
                     {Utils.stringInsert(otp, otpLength / 2, " ")}
                 </span>
@@ -214,7 +237,7 @@
 
         <!-- URL -->
         <div class="mt-6 flex justify-between">
-            <button on:click='{() => Utils.copyTextToClipboard(shareURL)}' class="text-gray-700 hover:text-gray-400" tooltip="Copy shareable URL to clipboard">
+            <button on:click={copyToClipboardHandler(shareURL)} class="text-gray-700 hover:text-gray-400" tooltip="Copy shareable URL to clipboard">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>

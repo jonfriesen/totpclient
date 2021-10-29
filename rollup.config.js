@@ -5,6 +5,8 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import injectProcessEnv from 'rollup-plugin-inject-process-env';
 import sveltePreprocess from 'svelte-preprocess'
+import replace from '@rollup/plugin-replace';
+import css from 'rollup-plugin-css-only';
 
 const isProduction = process.env.ENVIRONMENT === 'production';
 
@@ -38,6 +40,8 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		css({ output: 'extra.css' }),
+		
 		svelte({
 			// we'll extract any component CSS out into
 			// a separate file - better for performance
@@ -46,6 +50,11 @@ export default {
 			},
 			// run preprocessor on our style tags
 			preprocess: sveltePreprocess({ postcss: true, sourceMap: !isProduction })
+		}),
+
+		replace({
+			preventAssignment: true,
+			'process.env.NODE_ENV': JSON.stringify(isProduction ? 'production' : 'development')
 		}),
 
 		// If you have external dependencies installed from

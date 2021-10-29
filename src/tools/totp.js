@@ -23,7 +23,7 @@ function updateOtp(secret, secretType, otpLength, otpWindow) {
 }
 
 function getQRURL(secret, otpWindow, otpLength) {
-    return 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth%3A%2F%2Ftotp%2FUser%3Fsecret%3D' + secret + '%26issuer%3DOTPNinja%26period%3D' + otpWindow + '%26digits%3D' + otpLength;
+    return 'https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=400x400&chld=M|0&cht=qr&chl=otpauth%3A%2F%2Ftotp%2FUser%3Fsecret%3D' + secret + '%26issuer%3DOTPNinja%26period%3D' + otpWindow + '%26digits%3D' + otpLength;
 }
 
 const TOTP = {

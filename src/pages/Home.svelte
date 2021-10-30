@@ -1,4 +1,6 @@
 <script>
+  import { fade } from 'svelte/transition';
+  import { cubicIn, cubicOut } from 'svelte/easing';
     import { onMount } from 'svelte';
     import Utils from "../tools/utils.js";
     import TOTP from "../tools/totp.js";
@@ -268,11 +270,20 @@
   </div>
   <!-- This example requires Tailwind CSS v2.0+ -->
   {#if showInfoPanel}
-<div class="fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+<div class="fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true"
+in:fade={{ duration: 100, start: 0.95, easing: cubicOut }}
+     out:fade={{ duration: 75, start: 0.95, easing: cubicIn }}>
+     
+
     <div class="absolute inset-0 overflow-hidden">
       <!-- Background overlay, show/hide based on slide-over state. -->
       <div class="absolute inset-0" aria-hidden="true">
         <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
+          <div
+            class="fixed inset-0 transition-opacity"
+            on:click={() => (showInfoPanel = !showInfoPanel)}
+            aria-hidden="true"
+          />
           <!--
             Slide-over panel, show/hide based on slide-over state.
   

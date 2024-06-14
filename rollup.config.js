@@ -37,7 +37,7 @@ export default {
 		sourcemap: !isProduction,
 		format: 'iife',
 		name: 'app',
-		file: 'public/build/bundle.js'
+		file: 'docs/build/bundle.js'
 	},
 	plugins: [
 		css({ output: 'extra.css' }),
@@ -46,7 +46,7 @@ export default {
 			// we'll extract any component CSS out into
 			// a separate file - better for performance
 			css: css => {
-				css.write('public/build/bundle.css');
+				css.write('docs/build/bundle.css');
 			},
 			// run preprocessor on our style tags
 			preprocess: sveltePreprocess({ postcss: true, sourceMap: !isProduction })
@@ -78,9 +78,9 @@ export default {
 		// the bundle has been generated
 		!isProduction && serve(),
 
-		// Watch the `public` directory and refresh the
+		// Watch the `docs` directory and refresh the
 		// browser on changes when not in production
-		!isProduction && livereload('public'),
+		!isProduction && livereload('docs'),
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify

@@ -40,16 +40,15 @@ export default {
 		file: 'docs/build/bundle.js'
 	},
 	plugins: [
-		css({ output: 'extra.css' }),
+		css({ output: 'docs/build/bundle.css' }),
 		
 		svelte({
-			// we'll extract any component CSS out into
-			// a separate file - better for performance
-			css: css => {
-				css.write('docs/build/bundle.css');
-			},
 			// run preprocessor on our style tags
-			preprocess: sveltePreprocess({ postcss: true, sourceMap: !isProduction })
+			preprocess: sveltePreprocess({ postcss: true, sourceMap: !isProduction }),
+			compilerOptions: {
+				// enable run-time checks when not in production
+				dev: !isProduction
+			}
 		}),
 
 		replace({
@@ -64,7 +63,9 @@ export default {
 		// https://github.com/rollup/plugins/tree/master/packages/commonjs
 		resolve({
 			browser: true,
-			dedupe: ['svelte']
+			dedupe: ['svelte'],
+			exportConditions: ['svelte'],
+			preferBuiltins: false
 		}),
 		commonjs(),
 

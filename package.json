@@ -1,23 +1,24 @@
 {
   "name": "svelte-app",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "build": "rollup -c --environment ENVIRONMENT:production",
     "dev": "rollup -c -w --environment ENVIRONMENT:development",
     "start": "sirv public --single"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^14.0.0",
-    "@rollup/plugin-node-resolve": "^8.0.0",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
     "postcss": "^8.3.0",
     "postcss-load-config": "^3.0.1",
-    "rollup": "^2.3.4",
+    "rollup": "^4.43.0",
     "rollup-plugin-inject-process-env": "^1.3.1",
     "rollup-plugin-livereload": "^1.0.0",
-    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-svelte": "^7.2.2",
     "rollup-plugin-terser": "^7.0.0",
-    "svelte": "^3.0.0",
-    "svelte-preprocess": "^4.1.1",
+    "svelte": "^4.2.20",
+    "svelte-preprocess": "^5.1.4",
     "tailwindcss": "^2.1.4"
   },
   "dependencies": {
@@ -27,7 +28,6 @@
     "@tailwindcss/forms": "^0.3.3",
     "@tailwindcss/typography": "^0.4.1",
     "autoprefixer": "^10.2.6",
-    "page": "^1.11.6",
     "rollup-plugin-css-only": "^3.1.0",
     "sirv-cli": "^1.0.0",
     "tippy.js": "^6.3.2"
